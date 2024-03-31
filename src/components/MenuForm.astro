@@ -1,0 +1,14 @@
+---
+// Creamos y obtenemos las propiedades.
+interface Props {
+  submit?: string;
+}
+
+const { submit } = Astro.props;
+---
+
+<!-- Creamos el formulario de los dispositivos. -->
+<form class='border rounded-lg p-5 flex flex-col gap-3'>
+  <slot />
+  {submit ? <input class='border rounded-lg px-3 py-1 cursor-pointer' type='submit' value={submit} /> : ''}
+</form>

@@ -1,0 +1,13 @@
+---
+// Creamos y obtenemos las propiedades.
+interface Props {
+  opens: string;
+}
+
+const { opens } = Astro.props;
+---
+
+<!-- Creamos el botón de los iconos del menu de los dispositivos. -->
+<button class={`open-${opens} border rounded-lg p-3 flex justify-center items-center`}>
+  <img class='size-60' src={`/img/${opens}.webp`} alt={`Icono de ${opens}`} />
+</button>

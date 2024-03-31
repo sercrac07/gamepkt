@@ -1,0 +1,16 @@
+---
+// Importamos los componentes usados.
+import GamePkt from '&/icons/GamePkt.astro';
+---
+
+<!-- Creamos el encabezado de la página. -->
+<header transition:name='header' class='flex flex-row justify-between items-center px-40 h-[10vh]'>
+  <a href='/'><GamePkt /></a>
+
+  <nav class='flex flex-row gap-8 font-extrabold text-lg items-center'>
+    <a href='/mapa'>Mapa</a>
+    <a href='/docs'>Documentación</a>
+    <a href='/equipo'>Sobre nosotros</a>
+    <a class='py-1 px-3 rounded-lg bg-black text-[#FEFAE0]' href='https://github.com/Oigres07/Gamepkt' target='_blank' rel='noopener noreferrer'>GitHub</a>
+  </nav>
+</header>

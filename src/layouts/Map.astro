@@ -1,0 +1,26 @@
+---
+// Importamos las fuentes de texto.
+import '@fontsource-variable/onest';
+import '@fontsource/press-start-2p';
+
+// Creamos y obtenemos las propiedades.
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!-- Renderizamos el mapa. --><!doctype html>
+<html lang='es'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='description' content='TODO' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/icon.svg' />
+    <title>{title}</title>
+  </head>
+  <body class='font-ones bg-white'>
+    <slot />
+  </body>
+</html>

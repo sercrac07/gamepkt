@@ -1,0 +1,17 @@
+---
+// Creamos y obtenemos las propiedades.
+interface Props {
+  width?: number;
+  id?: string;
+}
+
+const { width = 256, id } = Astro.props;
+---
+
+<!-- Icono "X". -->
+<svg xmlns='http://www.w3.org/2000/svg' class='absolute top-4 right-4 cursor-pointer' xml:space='preserve' width={width} height={width} id={id} viewBox='0 0 256 256'
+  ><g style='stroke:none;stroke-width:0;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:none;fill-rule:nonzero;opacity:1'
+    ><path d='M6 90c-1.536 0-3.071-.586-4.243-1.758-2.343-2.343-2.343-6.142 0-8.484l78-78c2.342-2.343 6.143-2.343 8.484 0 2.344 2.343 2.344 6.142 0 8.485l-78 78C9.071 89.414 7.536 90 6 90z' style='stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000;fill-rule:nonzero;opacity:1' transform='matrix(2.81 0 0 2.81 1.4066 1.4066)'></path><path d='M84 90c-1.535 0-3.071-.586-4.242-1.758l-78-78c-2.343-2.343-2.343-6.142 0-8.485 2.343-2.343 6.143-2.343 8.485 0l78 78c2.344 2.343 2.344 6.142 0 8.484C87.071 89.414 85.535 90 84 90z' style='stroke:none;stroke-width:1;stroke-dasharray:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;fill:#000;fill-rule:nonzero;opacity:1' transform='matrix(2.81 0 0 2.81 1.4066 1.4066)'
+    ></path></g
+  ></svg
+>

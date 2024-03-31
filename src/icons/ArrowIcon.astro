@@ -1,0 +1,19 @@
+---
+// Creamos y obtenemos las propiedades.
+interface Props {
+  width?: number;
+  id?: string;
+  rotate?: boolean;
+}
+
+const { width = 256, id, rotate } = Astro.props;
+---
+
+<!-- Icono ">". -->
+<svg width={width} class={`transition-all duration-300 ${rotate && 'toggled'} cursor-pointer`} height={width} id={id} viewBox='0 0 256 256'><g><path d='M24.25 90c-.896 0-1.792-.342-2.475-1.025-1.367-1.366-1.367-3.583 0-4.949L60.8 45 21.775 5.975c-1.367-1.367-1.367-3.583 0-4.95 1.367-1.366 3.583-1.366 4.95 0l41.5 41.5c1.367 1.366 1.367 3.583 0 4.949l-41.5 41.5C26.042 89.658 25.146 90 24.25 90z' transform='matrix(2.81 0 0 2.81 1.4066 1.4066)'></path></g></svg>
+
+<style>
+  .toggled {
+    rotate: 180deg;
+  }
+</style>

@@ -1,0 +1,33 @@
+---
+// Creamos y obtenemos las propiedades.
+interface Props {
+  isPc: boolean;
+  index: number;
+}
+
+const { index, isPc } = Astro.props;
+---
+
+<!-- Renderizamos los elementos, teniendo en cuenta si son un PC o un servidor. -->{
+  isPc ? (
+    <>
+      <img data-element='pc' class='size-52 cursor-pointer' src='/img/pc.webp' alt='Imagen de un pc' />
+      <div data-pc-index={index} class='absolute top-0 left-0 bg-black/20 hidden h-full w-full transition-all flex-row justify-center items-center z-10'>
+        <slot />
+      </div>
+    </>
+  ) : (
+    <>
+      <img data-element='server' class='size-52 cursor-pointer' src='/img/server.webp' alt='Imagen de un servidor' />
+      <div data-server-index={index} class='absolute top-0 left-0 bg-black/20 hidden h-full w-full transition-all flex-row justify-center items-center z-10'>
+        <slot />
+      </div>
+    </>
+  )
+}
+
+<style>
+  .opened {
+    display: flex;
+  }
+</style>

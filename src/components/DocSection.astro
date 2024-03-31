@@ -1,0 +1,13 @@
+---
+// Creamos y obtenemos las propiedades.
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+---
+
+<!-- Creamos la sección de la documentación. -->
+<section id={id} class='mt-28'>
+  <slot />
+</section>

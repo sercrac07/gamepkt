@@ -1,0 +1,60 @@
+---
+// Importamos los componentes usados.
+import DocContent from '&/components/DocContent.astro';
+import DocSection from '&/components/DocSection.astro';
+import DocTitle from '&/components/DocTitle.astro';
+import Page from '&/layouts/Page.astro';
+---
+
+<!-- Página de "docs". -->
+<Page title='Game.pkt - Documentación'>
+  <DocSection id='conectar-dispositivos'>
+    <DocTitle>Como conectar dos dispositivos</DocTitle>
+    <DocContent> ¡Conectar dispositivos en tu red es fácil! En la pantalla principal, verás varios iconos en la parte inferior. Busca el icono del cable y selecciónalo. Ahora, simplemente pulsa en el primer dispositivo que desees conectar y luego en el segundo dispositivo. ¡Listo! Los dispositivos ahora están conectados en tu red. Recuerda que puedes conectar más dispositivos siguiendo los mismos pasos. ¡Explora y conecta tu red como un profesional!</DocContent>
+  </DocSection>
+
+  <DocSection id='configurar-dispositivos'>
+    <DocTitle>Como configurar un dispositivo</DocTitle>
+    <DocContent>¡Configurar un dispositivo es clave para su funcionamiento en la red! En la pantalla principal, haz clic en el dispositivo que deseas configurar. Se abrirá un menú con opciones de configuración, como asignación de dirección IP, configuración de servicios, entre otros. Explora las diferentes opciones y ajusta la configuración según tus necesidades. Una vez que hayas terminado de configurar, guarda los cambios y el dispositivo estará listo para funcionar según tus preferencias. ¡Haz clic, configura y optimiza tu red!</DocContent>
+  </DocSection>
+
+  <DocSection id='configurar-ip'>
+    <DocTitle>Como configurar una IP</DocTitle>
+    <DocContent>Para configurar la dirección IP de un dispositivo, primero abre el menú del dispositivo que deseas ajustar. Dentro del menú, busca la opción de configuración o ajustes (primer icono). Una vez allí, encontrarás la opción para ingresar la dirección IP deseada. Escribe la dirección IP que deseas asignar al dispositivo y asegúrate de guardar los cambios. Ahora, el dispositivo utilizará la dirección IP que especificaste en tu red. Recuerda que cada dispositivo debe tener una dirección IP única para evitar conflictos en la red. ¡Configura la dirección IP de tus dispositivos de manera sencilla y efectiva!</DocContent>
+  </DocSection>
+
+  <DocSection id='enviar-paquetes'>
+    <DocTitle>Como enviar paquetes de un dispositivo a otro</DocTitle>
+    <DocContent>Para enviar paquetes de un dispositivo a otro en tu red, puedes utilizar el comando "ping". Primero, abre el menú del dispositivo desde el que deseas enviar los paquetes. Dentro del menú, busca la opción de consola o terminal (segundo icono). Una vez en la consola, escribe el comando "ping" seguido de la dirección IP del dispositivo al que deseas enviar los paquetes. Por ejemplo, puedes escribir "ping 192.168.1.2" si deseas enviar paquetes al dispositivo con esa dirección IP. Presiona Enter para ejecutar el comando y verás los resultados del ping, indicando si los paquetes fueron enviados con éxito. ¡Utiliza el comando "ping" para comprobar la conectividad entre tus dispositivos y asegurar que la red esté funcionando correctamente!</DocContent>
+  </DocSection>
+
+  <DocSection id='configurar-http'>
+    <DocTitle>Como configurar el servicio HTTP</DocTitle>
+    <DocContent>Para configurar el servicio HTTP en tu servidor, primero accede al menú del servidor que deseas configurar. Una vez dentro del menú, busca la opción correspondiente al servicio HTTP (cuarto icono). Dentro de esta sección, encontrarás la opción para activar o desactivar el servicio según tus necesidades. Además, tendrás la posibilidad de personalizar el contenido visible en la web, lo que te permite adaptar la experiencia de los usuarios a tus preferencias. Asegúrate de guardar los cambios una vez que hayas realizado las configuraciones deseadas. Con el servicio HTTP configurado en tu servidor, podrás ofrecer contenido web de manera eficiente y personalizada. ¡Explora las opciones disponibles y haz que tu servidor brille en la red!</DocContent>
+  </DocSection>
+
+  <DocSection id='usar-navegador'>
+    <DocTitle>Como usar el navegador</DocTitle>
+    <DocContent>Para usar el navegador en un dispositivo, primero abre el menú del dispositivo que deseas utilizar. Luego, busca y selecciona la opción del navegador dentro del menú (tercer icono). Una vez que el navegador esté abierto, podrás ingresar la dirección IP o el nombre de dominio del servidor web al que deseas acceder. Simplemente escribe la dirección deseada en la barra de direcciones del navegador y presiona Enter para cargar la página web correspondiente. Así de fácil, podrás explorar y acceder a contenido web desde tu dispositivo en la red. ¡Disfruta de la experiencia de navegación!</DocContent>
+  </DocSection>
+
+  <DocSection id='configurar-dhcp'>
+    <DocTitle>Como configurar el servicio DHCP</DocTitle>
+    <DocContent
+      >Para configurar el servicio DHCP en tu servidor, primero accede al menú del servidor que deseas configurar. Una vez dentro del menú, busca la opción correspondiente al servicio DHCP (quinto icono). Dentro de esta sección, encontrarás la opción para activar o desactivar el servicio según tus necesidades. Además, podrás personalizar el rango de direcciones IP que el servidor ofrecerá a los dispositivos de la red. Esto te permite controlar qué direcciones IP están disponibles para asignar de manera automática a los dispositivos conectados. Asegúrate de guardar los cambios una vez que hayas realizado las configuraciones deseadas. Con el servicio DHCP configurado en tu servidor, la asignación automática de direcciones IP se realizará de forma eficiente y sin complicaciones. ¡Explora las
+      opciones disponibles y optimiza tu red con DHCP!</DocContent
+    >
+  </DocSection>
+
+  <DocSection id='configuracion-dinamica'>
+    <DocTitle>Como configurar un dispositivo de manera dinámica</DocTitle>
+    <DocContent>Para configurar la dirección IP de un dispositivo de manera dinámica, primero abre el menú del dispositivo que deseas configurar. Dentro del menú, busca la opción de configuración (primer icono) y luego selecciona la opción de configuración dinámica o automática. Esto permite que el dispositivo obtenga su dirección IP de manera automática a través del servicio DHCP configurado en la red.</DocContent>
+    <DocContent>Al seleccionar la configuración dinámica en el menú de configuración del dispositivo, el dispositivo obtendrá automáticamente una dirección IP del servidor DHCP. Si por alguna razón el servidor DHCP no está disponible, el dispositivo puede asignarse una dirección IP APIPA (es una dirección IP automática que un dispositivo asigna a sí mismo cuando no puede obtener una dirección IP válida de un servidor DHCP, con un rango de 169.254.0.0/16) para continuar la comunicación en la red local.</DocContent>
+  </DocSection>
+
+  <DocSection id='configurar-dns'>
+    <DocTitle>Como configurar el servicio DNS</DocTitle>
+    <DocContent>Para configurar el servicio DNS en tu servidor, primero accede al menú del servidor que deseas configurar. Dentro del menú, busca la opción correspondiente al servicio DNS (sexto icono). Dentro de esta sección, encontrarás la opción para activar o desactivar el servicio según tus necesidades.</DocContent>
+    <DocContent>Una vez que hayas activado el servicio DNS en tu servidor, podrás introducir los nombres de dominio y las direcciones IP asociadas dentro de la configuración del DNS. De esta manera, cuando los usuarios de la red ingresen un nombre de dominio, el servidor DNS traducirá automáticamente este nombre en la dirección IP correspondiente, permitiendo una navegación más fácil y eficiente en la red. ¡Explora y configura el servicio DNS para mejorar la accesibilidad y funcionalidad de tu red!</DocContent>
+  </DocSection>
+</Page>
