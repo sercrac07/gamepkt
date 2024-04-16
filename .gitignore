@@ -1,7 +1,6 @@
 # Inoramos los ficheros para GitHub.
 
 dist/
-.astro/
 
 node_modules/
 
