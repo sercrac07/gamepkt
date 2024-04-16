@@ -1,5 +1,15 @@
+---
+// Creamos y obtenemos las propiedades.
+interface Props {
+  width?: number
+  class?: string
+}
+
+const { width = 111.175, class: className } = Astro.props
+---
+
 <!-- Icono de "Game.pkt". -->
-<svg width='111.175' height='22.75'
+<svg width={width} height='auto' viewBox='0 0 111.175 22.75' class={className}
   ><path
     fill-rule='evenodd'
     stroke='#000'

@@ -1,24 +1,24 @@
 ---
 // Importamos los componentes utilizados.
-import Pill from '&/components/Pill.astro';
+import Pill from '&/components/Pill.astro'
 
 // Importamos los datos de todos los niveles.
-import { LEVEL_DATA } from '&/consts';
+import { LEVEL_DATA } from '&/consts'
 ---
 
 <!-- Renderizamos un botón que nos redirije a cada nivel. -->
-<section class='mt-10 grid grid-cols-3 gap-4'>
+<section class='mt-10 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3'>
   {
     LEVEL_DATA.map((level, index) => (
-      <a href={`/nivel/${index + 1}`} class='border p-4 rounded-2xl transition bg-secondary hover:scale-110'>
-        <h1 class='text-xl'>{level.name}</h1>
-        <div class='flex flex-row gap-1 items-center'>
+      <a href={`/nivel/${index + 1}`} class='border xl:p-4 p-3 rounded-2xl transition bg-secondary hover:scale-105 overflow-hidden'>
+        <h1 class='text-2xl'>{level.name}</h1>
+        <div class='flex flex-row gap-x-1 items-center flex-wrap mb-2'>
           <h2>Elementos:</h2>
           {level.elements.map(element => (
             <Pill>{element.name}</Pill>
           ))}
         </div>
-        <div class='flex flex-row gap-1 items-center'>
+        <div class='flex flex-row gap-x-1 items-center flex-wrap mb-2'>
           <h2>Materiales:</h2>
           {level.materials.map(material => (
             <Pill>{material.name}</Pill>

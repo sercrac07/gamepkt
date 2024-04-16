@@ -1,38 +1,38 @@
 ---
 // Importamos todos los componentes usados.
-import ArrowIcon from '&/icons/ArrowIcon.astro';
-import Button from '&/components/Button.astro';
-import CloseMenu from '&/components/CloseMenu.astro';
-import CrossIcon from '&/icons/CrossIcon.astro';
-import Map from '&/layouts/Map.astro';
-import MenuButton from '&/components/MenuButton.astro';
-import MenuForm from '&/components/MenuForm.astro';
-import Modal from '&/components/Modal.astro';
-import RenderElement from '&/components/RenderElement.astro';
+import ArrowIcon from '&/icons/ArrowIcon.astro'
+import Button from '&/components/Button.astro'
+import CloseMenu from '&/components/CloseMenu.astro'
+import CrossIcon from '&/icons/CrossIcon.astro'
+import Map from '&/layouts/Map.astro'
+import MenuButton from '&/components/MenuButton.astro'
+import MenuForm from '&/components/MenuForm.astro'
+import Modal from '&/components/Modal.astro'
+import RenderElement from '&/components/RenderElement.astro'
 
 // Importamos los datos de los niveles.
-import { LEVEL_DATA } from '&/consts';
+import { LEVEL_DATA } from '&/consts'
 
 // Calculamos todas las posibles rutas de todos los niveles.
 export const getStaticPaths = () => {
-  return LEVEL_DATA.map((_, i) => ({ params: { level: i + 1 } }));
-};
+  return LEVEL_DATA.map((_, i) => ({ params: { level: i + 1 } }))
+}
 
 // Obtenemos el nivel de la URL.
-const { level } = Astro.params;
+const { level } = Astro.params
 
 // Obtenemos los datos del nivel actual.
-const currentLevelData = LEVEL_DATA[level - 1];
+const currentLevelData = LEVEL_DATA[level - 1]
 
 // Función para dar formato a las palabras claves.
 const formatKeyWord = (word: string): string => {
-  const cleanWord = word.split('-').join(' ');
+  const cleanWord = word.split('-').join(' ')
 
-  return cleanWord.charAt(0).toUpperCase() + cleanWord.slice(1);
-};
+  return cleanWord.charAt(0).toUpperCase() + cleanWord.slice(1)
+}
 
 // Creamos un array con la longitud de todos los cables disposibles en el nivel.
-const wireArray = new Array(currentLevelData.materials.filter(material => material.name === 'cable')[0]?.amount).fill(0);
+const wireArray = new Array(currentLevelData.materials.filter(material => material.name === 'cable')[0]?.amount).fill(0)
 ---
 
 <!-- Página de los niveles. -->
@@ -53,7 +53,7 @@ const wireArray = new Array(currentLevelData.materials.filter(material => materi
         materials: { name: 'cable'; amount: number }[];
         check: (level: any) => boolean;
       }} */
-      const level = JSON.parse(document.querySelector('#options').getAttribute('data-level'));
+      const level = JSON.parse(document.querySelector('#options').getAttribute('data-level'))
 
       // Identificamos cada selección del usuario.
       const selected = {
@@ -67,50 +67,50 @@ const wireArray = new Array(currentLevelData.materials.filter(material => materi
           selected: false,
           id: 0,
         },
-      };
+      }
 
       // Función para verificar si dos dispositivos están conectados.
       const isConnected = (el1, el2) => {
-        let result = false;
+        let result = false
 
         level.elements[el1].connections.forEach(connection => {
-          if (connection === el2) return (result = true);
+          if (connection === el2) return (result = true)
 
           if (level.elements[connection].name === 'switch')
             level.elements[connection].connections.forEach(con => {
-              if (con === el2) return (result = true);
-            });
-        });
+              if (con === el2) return (result = true)
+            })
+        })
 
-        return result;
-      };
+        return result
+      }
 
       // Función para verificar si la IP está en uso, y para ver cuántos dispositivos la están usando.
       const hasIp = ip => {
-        return [level.elements.filter(el => el.ip === ip).length > 0, level.elements.filter(el => el.ip === ip).length];
-      };
+        return [level.elements.filter(el => el.ip === ip).length > 0, level.elements.filter(el => el.ip === ip).length]
+      }
 
       // Mostramos el menu de opciones cuando hagamos click.
       document.querySelector('#options')?.addEventListener('click', () => {
-        document.querySelector('#pause')?.classList.toggle('active');
-      });
+        document.querySelector('#pause')?.classList.toggle('active')
+      })
 
       // Función para verificar si una IP es válida o no.
       const isValidIp = ip => {
-        return ip.startsWith('192.168.1.');
-      };
+        return ip.startsWith('192.168.1.')
+      }
     </script>
   </header>
 
   <!-- Renderizamos la introducción al nivel. -->
   <div id='predesc' class='bg-black/20 absolute h-full w-full top-0 left-0 transition-all flex flex-row justify-center items-center z-10'>
-    <div class='bg-white rounded-lg p-20 w-3/4 h-3/4 relative'>
+    <div class='bg-white rounded-lg lg:p-20 p-6 w-3/4 h-3/4 relative'>
       <div class='flex flex-row justify-between'>
         <h1 class='text-2xl font-bold mb-6'>Introducción</h1>
         <CrossIcon width={30} />
       </div>
       <p>{currentLevelData.intro}</p>
-      <ul class='mt-8 font-bold flex flex-row items-center gap-2'>
+      <ul class='mt-8 font-bold flex flex-row items-center gap-2 lg:text-lg text-sm'>
         ¡Mira la documentación! {
           currentLevelData.key.map(k => (
             <a class='bg-slate-300/40 px-2 py-1 rounded-lg' href={`/docs#${k}`}>
@@ -123,11 +123,11 @@ const wireArray = new Array(currentLevelData.materials.filter(material => materi
   </div>
   <script is:inline>
     // Ocultamos la introducción al hacer click en el icono "X".
-    const $predesc = document.querySelector('#predesc');
+    const $predesc = document.querySelector('#predesc')
 
     $predesc.querySelector('svg').addEventListener('click', () => {
-      $predesc.classList.add('hidden');
-    });
+      $predesc.classList.add('hidden')
+    })
   </script>
 
   <!-- Renderizamos el botón de opciones, con los botones de navegación. -->
@@ -142,8 +142,8 @@ const wireArray = new Array(currentLevelData.materials.filter(material => materi
         <script is:inline>
           // Ocultamos el menu de opciones cuando hagamos click.
           document.querySelector('#resume')?.addEventListener('click', () => {
-            document.querySelector('#pause')?.classList.toggle('active');
-          });
+            document.querySelector('#pause')?.classList.toggle('active')
+          })
         </script>
       </div>
     </div>
@@ -158,7 +158,7 @@ const wireArray = new Array(currentLevelData.materials.filter(material => materi
           return (
             <RenderElement isPc={element.name === 'pc'} index={index}>
               <Modal name='menu'>
-                <div class='grid grid-cols-3 gap-4'>
+                <div class='grid lg:grid-cols-3 grid-cols-2 gap-4'>
                   <MenuButton opens='config' />
                   <MenuButton opens='cmd' />
                   <MenuButton opens='browser' />
@@ -306,10 +306,10 @@ const wireArray = new Array(currentLevelData.materials.filter(material => materi
                 </>
               )}
             </RenderElement>
-          );
+          )
         } else {
           // Renderizamos el switch.
-          return <img data-element='switch' class='size-52 cursor-pointer' src={`/img/${element.name}.webp`} alt={`Imagen de ${element.name}`} />;
+          return <img data-element='switch' class='size-52 cursor-pointer' src={`/img/${element.name}.webp`} alt={`Imagen de ${element.name}`} />
         }
       })
     }
@@ -318,360 +318,362 @@ const wireArray = new Array(currentLevelData.materials.filter(material => materi
       document.querySelectorAll('[data-element]').forEach((element, index) => {
         // Obtenemos el nombre del elemento.
         /** @type {'pc' | 'switch' | 'server'} */
-        const elementName = element.getAttribute('data-element');
+        const elementName = element.getAttribute('data-element')
 
         // Lógica de los elementos "pc" y "server".
         if (elementName === 'pc' || elementName === 'server') {
           // Guardamos el menu del elemento.
-          const elementMenu = document.querySelector(`[data-${elementName}-index="${index}"]`);
+          const elementMenu = document.querySelector(`[data-${elementName}-index="${index}"]`)
 
           // Lógica al hacer click en el elemento.
           element.addEventListener('click', () => {
             // Verificamos si tenía un cable y un elemento seleccionado anteriormente.
             if (selected.second.selected) {
               // Reiniciamos el elemento seleccionado anteriormente.
-              selected.second.selected = false;
+              selected.second.selected = false
 
               // Verificamos que no haya seleccionado el mismo elemento, y que el elemento no esté ya conectado.
               if (selected.second.id !== index && level.elements[index].connections.filter(con => con === selected.second.id).length === 0) {
-                const { left } = element.getBoundingClientRect();
+                const { left } = element.getBoundingClientRect()
+                const thisX = left + element.getBoundingClientRect().width / 2
 
                 // Calculamos la longitud entre los elementos.
-                const length = left + 104 > selected.second.x ? left + 104 - selected.second.x : selected.second.x - left + 104;
-                const closest = left + 104 > selected.second.x ? selected.second.x : left + 104;
+                const length = thisX > selected.second.x ? thisX - selected.second.x : selected.second.x - thisX
+                const closest = thisX > selected.second.x ? selected.second.x : thisX
 
                 // Renderizamos un cable entre los dispositivos.
-                const cable = document.querySelectorAll('[data-cable-index]')[level.materials[selected.first.id].amount - 1].style;
-                cable.display = 'block';
-                cable.left = `${closest}px`;
-                cable.top = `${selected.second.y}px`;
-                cable.width = `${length}px`;
+                const cable = document.querySelectorAll('[data-cable-index]')[level.materials[selected.first.id].amount - 1].style
+                cable.display = 'block'
+                cable.left = `${closest}px`
+                cable.top = `${selected.second.y}px`
+                cable.width = `${length}px`
 
                 // Añadimos la conexión a los datos de cada elemento.
-                level.elements[index].connections.push(selected.second.id);
-                level.elements[selected.second.id].connections.push(index);
+                level.elements[index].connections.push(selected.second.id)
+                level.elements[selected.second.id].connections.push(index)
 
                 // Eliminamos un cable, y verificamos si siguen habiendo cables disponibes.
-                level.materials[selected.first.id].amount--;
+                level.materials[selected.first.id].amount--
                 if (level.materials[selected.first.id].amount === 0) {
-                  selected.first.selected = false;
-                  document.querySelectorAll('[data-material]')[selected.first.id].classList.add('nomore');
+                  selected.first.selected = false
+                  document.querySelectorAll('[data-material]')[selected.first.id].classList.add('nomore')
                 }
               }
 
-              return;
+              return
             }
             // Verificamos si tenía un cable seleccionado anteriormente.
             else if (selected.first.selected) {
               // Seleccionamos el elemento y guardamos la posición del elemento.
-              selected.second.selected = true;
-              selected.second.id = index;
-              selected.second.x = element.getBoundingClientRect().left + 104;
-              selected.second.y = element.getBoundingClientRect().top + 104;
+              selected.second.selected = true
+              selected.second.id = index
+              selected.second.x = element.getBoundingClientRect().left + element.getBoundingClientRect().width / 2
+              selected.second.y = element.getBoundingClientRect().top + element.getBoundingClientRect().width / 2
 
-              return;
+              return
             }
 
             // Abrimos el menu del elemento.
-            elementMenu.classList.add('opened');
-            elementMenu.querySelector('.menu').classList.remove('hidden');
-          });
+            elementMenu.classList.add('opened')
+            elementMenu.querySelector('.menu').classList.remove('hidden')
+          })
 
           // Función para cerrar el menu del elemento.
           const closePc = () => {
             if (!elementMenu.querySelector('.menu').classList.contains('hidden')) {
-              elementMenu.querySelector('.menu').classList.add('hidden');
-              elementMenu.classList.remove('opened');
-            } else elementMenu.querySelector('.menu').classList.remove('hidden');
-            elementMenu.querySelector('.config').classList.add('hidden');
-            elementMenu.querySelector('.cmd').classList.add('hidden');
-            elementMenu.querySelector('.browser').classList.add('hidden');
+              elementMenu.querySelector('.menu').classList.add('hidden')
+              elementMenu.classList.remove('opened')
+            } else elementMenu.querySelector('.menu').classList.remove('hidden')
+            elementMenu.querySelector('.config').classList.add('hidden')
+            elementMenu.querySelector('.cmd').classList.add('hidden')
+            elementMenu.querySelector('.browser').classList.add('hidden')
 
             if (elementName === 'server') {
-              elementMenu.querySelector('.http').classList.add('hidden');
-              elementMenu.querySelector('.dhcp').classList.add('hidden');
-              elementMenu.querySelector('.dns').classList.add('hidden');
+              elementMenu.querySelector('.http').classList.add('hidden')
+              elementMenu.querySelector('.dhcp').classList.add('hidden')
+              elementMenu.querySelector('.dns').classList.add('hidden')
             }
-          };
+          }
 
           // Lógica para abrir todos los submenus del elemento.
           elementMenu.querySelector('.open-config').addEventListener('click', () => {
-            elementMenu.querySelector('.menu').classList.add('hidden');
-            elementMenu.querySelector('.config').classList.remove('hidden');
-          });
+            elementMenu.querySelector('.menu').classList.add('hidden')
+            elementMenu.querySelector('.config').classList.remove('hidden')
+          })
 
           elementMenu.querySelector('.open-cmd').addEventListener('click', () => {
-            elementMenu.querySelector('.menu').classList.add('hidden');
-            elementMenu.querySelector('.cmd').classList.remove('hidden');
-          });
+            elementMenu.querySelector('.menu').classList.add('hidden')
+            elementMenu.querySelector('.cmd').classList.remove('hidden')
+          })
 
           elementMenu.querySelector('.open-browser').addEventListener('click', () => {
-            elementMenu.querySelector('.menu').classList.add('hidden');
-            elementMenu.querySelector('.browser').classList.remove('hidden');
-          });
+            elementMenu.querySelector('.menu').classList.add('hidden')
+            elementMenu.querySelector('.browser').classList.remove('hidden')
+          })
 
           // Envío del formulario de la configuración.
           elementMenu.querySelector(`.config form`).addEventListener('submit', e => {
-            e.preventDefault();
-            const { ip, option } = Object.fromEntries(new FormData(e.target));
+            e.preventDefault()
+            const { ip, option } = Object.fromEntries(new FormData(e.target))
 
             // Verificamos si tiene una configuración dinámica o estática.
             if (option === 'dinamic') {
               // Creamos función para en caso de error.
               const apipa = () => {
-                const thisIp = `169.254.0.${level.apipa}`;
+                const thisIp = `169.254.0.${level.apipa}`
 
-                level.apipa++;
-                if (level.apipa === 255) level.apipa = 1;
+                level.apipa++
+                if (level.apipa === 255) level.apipa = 1
 
-                if (hasIp(thisIp)[0]) apipa();
+                if (hasIp(thisIp)[0]) apipa()
                 else {
-                  level.elements[index].ip = `${thisIp}`;
-                  elementMenu.querySelector('.config form [name="ip"]').value = `${thisIp}`;
+                  level.elements[index].ip = `${thisIp}`
+                  elementMenu.querySelector('.config form [name="ip"]').value = `${thisIp}`
                 }
-              };
+              }
 
               // Verificamos que haya un servicio DHCP disponible.
-              if (level.elements.filter(el => el.name === 'servidor').length === 0) return apipa();
+              if (level.elements.filter(el => el.name === 'servidor').length === 0) return apipa()
 
-              if (!level.elements.filter(el => el.name === 'servidor').some(el => el.dhcp.enabled)) return apipa();
+              if (!level.elements.filter(el => el.name === 'servidor').some(el => el.dhcp.enabled)) return apipa()
 
-              const argIndex = level.elements.findIndex(el => el.name === 'servidor' && el.dhcp.enabled);
+              const argIndex = level.elements.findIndex(el => el.name === 'servidor' && el.dhcp.enabled)
 
-              if (!isValidIp(level.elements[argIndex].ip)) return apipa();
+              if (!isValidIp(level.elements[argIndex].ip)) return apipa()
 
               // Función para proporcionar una IP.
               const configureIp = () => {
-                const thisIp = `192.168.1.${level.elements[argIndex].dhcp.currentIp}`;
+                const thisIp = `192.168.1.${level.elements[argIndex].dhcp.currentIp}`
 
-                level.elements[argIndex].dhcp.currentIp++;
-                if (level.elements[argIndex].dhcp.currentIp >= 255) level.elements[argIndex].dhcp.currentIp = level.elements[argIndex].dhcp.startIp;
+                level.elements[argIndex].dhcp.currentIp++
+                if (level.elements[argIndex].dhcp.currentIp >= 255) level.elements[argIndex].dhcp.currentIp = level.elements[argIndex].dhcp.startIp
 
-                if (hasIp(thisIp)[0]) configureIp();
+                if (hasIp(thisIp)[0]) configureIp()
                 else {
-                  level.elements[index].ip = `${thisIp}`;
-                  elementMenu.querySelector('.config form [name="ip"]').value = `${thisIp}`;
-                  level.elements[index].dhcps = true;
+                  level.elements[index].ip = `${thisIp}`
+                  elementMenu.querySelector('.config form [name="ip"]').value = `${thisIp}`
+                  level.elements[index].dhcps = true
                 }
-              };
+              }
 
               // Error si los dispositivos no están conectados.
-              if (!isConnected(index, argIndex)) return apipa();
+              if (!isConnected(index, argIndex)) return apipa()
 
-              configureIp();
+              configureIp()
             }
             // Damos IP estática.
             else {
-              level.elements[index].ip = ip;
-              level.elements[index].dhcps = false;
+              level.elements[index].ip = ip
+              level.elements[index].dhcps = false
             }
-          });
+          })
 
           // Envío del formulario de la consola.
           elementMenu.querySelector('.cmd form').addEventListener('submit', e => {
-            e.preventDefault();
-            const { input } = Object.fromEntries(new FormData(e.target));
-            const command = input.trim().split(' ')[0];
-            const args = input.trim().split(' ').slice(1);
+            e.preventDefault()
+            const { input } = Object.fromEntries(new FormData(e.target))
+            const command = input.trim().split(' ')[0]
+            const args = input.trim().split(' ').slice(1)
 
-            const validCommands = ['ping'];
+            const validCommands = ['ping']
 
-            const response = elementMenu.querySelector('.cmd span');
+            const response = elementMenu.querySelector('.cmd span')
 
             // Verificamos si el comando introducido es válido o no.
-            if (!validCommands.includes(command)) return (response.innerHTML = 'Debes de introducir un comando válido.');
+            if (!validCommands.includes(command)) return (response.innerHTML = 'Debes de introducir un comando válido.')
 
             // Caso de comando "ping".
             if (command === 'ping') {
-              const ipv4reg = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-              const [ip] = args;
+              const ipv4reg = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+              const [ip] = args
 
               // Verificamos si es una IP válida.
-              if (!ipv4reg.test(ip)) return (response.innerHTML = 'Debes de introducir una IP válida.');
+              if (!ipv4reg.test(ip)) return (response.innerHTML = 'Debes de introducir una IP válida.')
 
               // Verificamos si el dispositivo se encuentra o no.
-              if (!isValidIp(ip) || hasIp(ip)[1] !== 1 || !isValidIp(level.elements[index].ip)) return (response.innerHTML = `Dispositivo ${ip} no encontrado.`);
+              if (!isValidIp(ip) || hasIp(ip)[1] !== 1 || !isValidIp(level.elements[index].ip)) return (response.innerHTML = `Dispositivo ${ip} no encontrado.`)
 
-              const argIndex = level.elements.findIndex(el => el.ip === ip);
+              const argIndex = level.elements.findIndex(el => el.ip === ip)
 
-              if (!isConnected(index, argIndex) && argIndex !== index) return (response.innerHTML = `Dispositivo ${ip} no encontrado.`);
+              if (!isConnected(index, argIndex) && argIndex !== index) return (response.innerHTML = `Dispositivo ${ip} no encontrado.`)
 
               // Realizamos el ping y almacenamos el resultado en los datos de los elementos.
-              response.innerHTML = `Ping realizado con éxito a ${ip}.`;
+              response.innerHTML = `Ping realizado con éxito a ${ip}.`
 
-              if (level.elements[index].pings.filter(ping => ping === argIndex).length === 1) return;
+              if (level.elements[index].pings.filter(ping => ping === argIndex).length === 1) return
 
-              if (ip === level.elements[index].ip) return level.elements[index].pings.push(index);
+              if (ip === level.elements[index].ip) return level.elements[index].pings.push(index)
 
-              level.elements[argIndex].pings.push(index);
-              level.elements[index].pings.push(argIndex);
+              level.elements[argIndex].pings.push(index)
+              level.elements[index].pings.push(argIndex)
             }
-          });
+          })
 
           // Envío del formulario del navegador.
           elementMenu.querySelector('.browser form').addEventListener('submit', e => {
-            e.preventDefault();
-            const { ip } = Object.fromEntries(new FormData(e.target));
+            e.preventDefault()
+            const { ip } = Object.fromEntries(new FormData(e.target))
 
-            let thisIp = ip;
+            let thisIp = ip
 
-            const ipv4reg = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+            const ipv4reg = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
 
-            const response = elementMenu.querySelector('.browser iframe');
+            const response = elementMenu.querySelector('.browser iframe')
 
             // Verificamos si es una IP.
             if (!ipv4reg.test(ip)) {
               // Buscamos algun servidor con el servicio DNS activo.
-              if (level.elements.filter(el => el.name === 'servidor').length === 0) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>');
+              if (level.elements.filter(el => el.name === 'servidor').length === 0) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>')
 
-              if (!level.elements.filter(el => el.name === 'servidor').some(el => el.dns.enabled)) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>');
+              if (!level.elements.filter(el => el.name === 'servidor').some(el => el.dns.enabled)) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>')
 
-              const argIndex = level.elements.findIndex(el => el.name === 'servidor' && el.dns.enabled);
+              const argIndex = level.elements.findIndex(el => el.name === 'servidor' && el.dns.enabled)
 
-              if (!isValidIp(level.elements[argIndex].ip)) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>');
+              if (!isValidIp(level.elements[argIndex].ip)) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>')
 
-              if (!isConnected(index, argIndex)) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>');
+              if (!isConnected(index, argIndex)) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>')
 
-              if (!level.elements[argIndex].dns.dictionary[ip]) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>');
+              if (!level.elements[argIndex].dns.dictionary[ip]) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>')
 
               // Si encuentra el servicio DNS, y se puede traducir el nombre, cambia el nombre por la IP.
-              thisIp = level.elements[argIndex].dns.dictionary[ip];
-              level.elements[argIndex].dnss = true;
+              thisIp = level.elements[argIndex].dns.dictionary[ip]
+              level.elements[argIndex].dnss = true
             }
 
             // Verificamos si la IP es válida y se puede encontrar.
-            if (!isValidIp(thisIp) || hasIp(thisIp)[1] !== 1 || !isValidIp(level.elements[index].ip)) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>');
+            if (!isValidIp(thisIp) || hasIp(thisIp)[1] !== 1 || !isValidIp(level.elements[index].ip)) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>')
 
-            const argIndex = level.elements.findIndex(el => el.ip === thisIp);
+            const argIndex = level.elements.findIndex(el => el.ip === thisIp)
 
-            if ((!isConnected(index, argIndex) && argIndex !== index) || ((!'http') in level.elements[argIndex] && !level.elements[argIndex].http.enabled)) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>');
+            if ((!isConnected(index, argIndex) && argIndex !== index) || ((!'http') in level.elements[argIndex] && !level.elements[argIndex].http.enabled)) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>')
 
             // Verificamos si la IP es un servidor y tiene el servicio HTTP activo.
-            if (level.elements[argIndex].name !== 'servidor' || !level.elements[argIndex].http.enabled) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>');
+            if (level.elements[argIndex].name !== 'servidor' || !level.elements[argIndex].http.enabled) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>')
 
-            if (level.elements[argIndex].http === undefined || level.elements[argIndex].http.content === undefined) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>');
+            if (level.elements[argIndex].http === undefined || level.elements[argIndex].http.content === undefined) return response.setAttribute('srcdoc', '<h1>Página no encontrada</h1>')
 
             // Mostramos el contenido del servidor en el navegador y almacenamos el resultado en los datos de los elementos.
-            response.setAttribute('srcdoc', `${level.elements[argIndex].http.content}`);
+            response.setAttribute('srcdoc', `${level.elements[argIndex].http.content}`)
 
-            if (level.elements[index].https.filter(http => http === argIndex).length === 1) return;
+            if (level.elements[index].https.filter(http => http === argIndex).length === 1) return
 
-            if (thisIp === level.elements[index].ip) return level.elements[index].https.push(index);
+            if (thisIp === level.elements[index].ip) return level.elements[index].https.push(index)
 
-            level.elements[argIndex].https.push(index);
-            level.elements[index].https.push(argIndex);
-          });
+            level.elements[argIndex].https.push(index)
+            level.elements[index].https.push(argIndex)
+          })
 
           // Contenido exclusivo de los servidores.
           if (elementName === 'server') {
             // Lógica para abrir todos los submenus del elemento.
             elementMenu.querySelector('.open-http').addEventListener('click', () => {
-              elementMenu.querySelector('.menu').classList.add('hidden');
-              elementMenu.querySelector('.http').classList.remove('hidden');
-            });
+              elementMenu.querySelector('.menu').classList.add('hidden')
+              elementMenu.querySelector('.http').classList.remove('hidden')
+            })
 
             elementMenu.querySelector('.open-dhcp').addEventListener('click', () => {
-              elementMenu.querySelector('.menu').classList.add('hidden');
-              elementMenu.querySelector('.dhcp').classList.remove('hidden');
-            });
+              elementMenu.querySelector('.menu').classList.add('hidden')
+              elementMenu.querySelector('.dhcp').classList.remove('hidden')
+            })
 
             elementMenu.querySelector('.open-dns').addEventListener('click', () => {
-              elementMenu.querySelector('.menu').classList.add('hidden');
-              elementMenu.querySelector('.dns').classList.remove('hidden');
-            });
+              elementMenu.querySelector('.menu').classList.add('hidden')
+              elementMenu.querySelector('.dns').classList.remove('hidden')
+            })
 
             // Envío del formulario del servicio HTTP.
             elementMenu.querySelector('.http form').addEventListener('submit', e => {
-              e.preventDefault();
-              const { enabled, code } = Object.fromEntries(new FormData(e.target));
+              e.preventDefault()
+              const { enabled, code } = Object.fromEntries(new FormData(e.target))
 
-              level.elements[index].http.enabled = enabled === 'true';
-              level.elements[index].http.content = code;
-            });
+              level.elements[index].http.enabled = enabled === 'true'
+              level.elements[index].http.content = code
+            })
 
             // Envío del formulario del servicio DHCP.
             elementMenu.querySelector('.dhcp form').addEventListener('submit', e => {
-              e.preventDefault();
-              const { enabled, startIp } = Object.fromEntries(new FormData(e.target));
+              e.preventDefault()
+              const { enabled, startIp } = Object.fromEntries(new FormData(e.target))
 
-              level.elements[index].dhcp.enabled = enabled === 'true';
-              level.elements[index].dhcp.startIp = Number(startIp);
-              level.elements[index].dhcp.currentIp = Number(startIp);
-            });
+              level.elements[index].dhcp.enabled = enabled === 'true'
+              level.elements[index].dhcp.startIp = Number(startIp)
+              level.elements[index].dhcp.currentIp = Number(startIp)
+            })
 
             // Envío del formulario del servicio DNS.
             elementMenu.querySelector('.dns form').addEventListener('submit', e => {
-              e.preventDefault();
-              const { enabled, name, ip } = Object.fromEntries(new FormData(e.target));
+              e.preventDefault()
+              const { enabled, name, ip } = Object.fromEntries(new FormData(e.target))
 
-              level.elements[index].dns.enabled = enabled === 'true';
+              level.elements[index].dns.enabled = enabled === 'true'
 
-              if (!name || !ip) return;
+              if (!name || !ip) return
 
-              level.elements[index].dns.dictionary[name.toLowerCase()] = ip;
+              level.elements[index].dns.dictionary[name.toLowerCase()] = ip
 
               for (const dic in level.elements[index].dns.dictionary) {
-                elementMenu.querySelector('.dns ul').innerHTML = `<li>${dic}: ${level.elements[index].dns.dictionary[dic]}</li>`;
+                elementMenu.querySelector('.dns ul').innerHTML = `<li>${dic}: ${level.elements[index].dns.dictionary[dic]}</li>`
               }
-            });
+            })
           }
 
           // Cerramos el menú al hacer click en cerrar.
           elementMenu.querySelectorAll('.close').forEach(close => {
             close.addEventListener('click', () => {
-              closePc();
-            });
-          });
+              closePc()
+            })
+          })
         } else {
           // Lógica al hacer click en el switch.
           element.addEventListener('click', () => {
             // Verificamos si tenía un cable y un elemento seleccionado anteriormente.
             if (selected.second.selected) {
               // Reiniciamos el elemento seleccionado anteriormente.
-              selected.second.selected = false;
+              selected.second.selected = false
 
               // Verificamos que no haya seleccionado el mismo elemento, y que el elemento no esté ya conectado.
               if (selected.second.id !== index && level.elements[index].connections.filter(con => con === selected.second.id).length === 0) {
-                const { left } = element.getBoundingClientRect();
+                const { left } = element.getBoundingClientRect()
+                const thisX = left + element.getBoundingClientRect().width / 2
 
                 // Calculamos la longitud entre los elementos.
-                const length = left + 104 > selected.second.x ? left + 104 - selected.second.x : selected.second.x - left + 104;
-                const closest = left + 104 > selected.second.x ? selected.second.x : left + 104;
+                const length = thisX > selected.second.x ? thisX - selected.second.x : selected.second.x - thisX
+                const closest = thisX > selected.second.x ? selected.second.x : thisX
 
                 // Renderizamos un cable entre los dispositivos.
-                const cable = document.querySelectorAll('[data-cable-index]')[level.materials[selected.first.id].amount - 1].style;
-                cable.display = 'block';
-                cable.left = `${closest}px`;
-                cable.top = `${selected.second.y}px`;
-                cable.width = `${length}px`;
+                const cable = document.querySelectorAll('[data-cable-index]')[level.materials[selected.first.id].amount - 1].style
+                cable.display = 'block'
+                cable.left = `${closest}px`
+                cable.top = `${selected.second.y}px`
+                cable.width = `${length}px`
 
                 // Añadimos la conexión a los datos de cada elemento.
-                level.elements[index].connections.push(selected.second.id);
-                level.elements[selected.second.id].connections.push(index);
+                level.elements[index].connections.push(selected.second.id)
+                level.elements[selected.second.id].connections.push(index)
 
                 // Eliminamos un cable, y verificamos si siguen habiendo cables disponibes.
-                level.materials[selected.first.id].amount--;
+                level.materials[selected.first.id].amount--
                 if (level.materials[selected.first.id].amount === 0) {
-                  selected.first.selected = false;
-                  document.querySelectorAll('[data-material]')[selected.first.id].classList.add('nomore');
+                  selected.first.selected = false
+                  document.querySelectorAll('[data-material]')[selected.first.id].classList.add('nomore')
                 }
               }
 
-              return;
+              return
             }
             // Verificamos si tenía un cable seleccionado anteriormente.
             else if (selected.first.selected) {
               // Seleccionamos el elemento y guardamos la posición del elemento.
-              selected.second.selected = true;
-              selected.second.id = index;
-              selected.second.x = element.getBoundingClientRect().left + 104;
-              selected.second.y = element.getBoundingClientRect().top + 104;
+              selected.second.selected = true
+              selected.second.id = index
+              selected.second.x = element.getBoundingClientRect().left + element.getBoundingClientRect().width / 2
+              selected.second.y = element.getBoundingClientRect().top + element.getBoundingClientRect().width / 2
 
-              return;
+              return
             }
-          });
+          })
         }
-      });
+      })
     </script>
   </main>
 
@@ -686,24 +688,24 @@ const wireArray = new Array(currentLevelData.materials.filter(material => materi
         // Lógica al hacer click en un cable.
         image.addEventListener('click', () => {
           // Verificamos que hayan cables disponibles, y si se han seleccionado algun elemento anteriormente.
-          if (level.materials[index].amount === 0) return;
+          if (level.materials[index].amount === 0) return
           if (selected.first.selected) {
-            selected.first.selected = false;
-            selected.second.selected = false;
-            image.classList.remove('selected');
+            selected.first.selected = false
+            selected.second.selected = false
+            image.classList.remove('selected')
           } else {
-            selected.first = { selected: true, id: index };
-            image.classList.add('selected');
+            selected.first = { selected: true, id: index }
+            image.classList.add('selected')
           }
-        });
-      });
+        })
+      })
     </script>
   </footer>
 
   <!-- Renderizamos los componentes de "victoria" y "derrota". -->
   <div class='absolute top-0 left-0 bg-black/20 hidden h-full w-full transition-all flex-row justify-center items-center z-10'>
     <div class='true hidden bg-white rounded-lg p-20'>
-      <h1 class='text-2xl font-bold mb-6'>¡Nivel superado!</h1>
+      <h1 class='text-2xl font-bold mb-6 text-center'>¡Nivel superado!</h1>
       <div class='flex flex-col gap-2 text-center'>
         {
           Number(level) + 1 !== LEVEL_DATA.length + 1 && (
@@ -717,7 +719,7 @@ const wireArray = new Array(currentLevelData.materials.filter(material => materi
       </div>
     </div>
     <div class='false hidden bg-white rounded-lg p-20'>
-      <h1 class='text-2xl font-bold mb-6'>¡Nivel no superado!</h1>
+      <h1 class='text-2xl font-bold mb-6 text-center'>¡Nivel no superado!</h1>
       <div class='flex flex-col gap-2 text-center'>
         <Button element='a' to={`/nivel/${level}`}>Reintentar</Button>
         <Button element='a' to='/'>Inicio</Button>
@@ -739,28 +741,28 @@ const wireArray = new Array(currentLevelData.materials.filter(material => materi
       <script is:inline>
         // Lógica para mostrar y oculatar las misiones al hacer click en la flecha.
         document.querySelector('#missions').addEventListener('click', () => {
-          document.querySelector('#missions').classList.toggle('toggled');
-          document.querySelector('.missions').classList.toggle('notshown');
-        });
+          document.querySelector('#missions').classList.toggle('toggled')
+          document.querySelector('.missions').classList.toggle('notshown')
+        })
       </script>
     </div>
     <button id='verify' class='border py-2 bg-white rounded-md'>Verificar</button>
     <script data-content={currentLevelData.check.toString()} is:inline>
       // Obtenemos la función de verificación.
-      const stringFunc = document.querySelector('[data-content]').getAttribute('data-content');
+      const stringFunc = document.querySelector('[data-content]').getAttribute('data-content')
 
       // Lógica al hacer click en "verificar".
       document.querySelector('#verify')?.addEventListener('click', () => {
-        if (!confirm('¿Estás seguro que deseas verificar el nivel? En caso de no superarlo, se deberá de reiniciar el nivel.')) return;
+        if (!confirm('¿Estás seguro que deseas verificar el nivel? En caso de no superarlo, se deberá de reiniciar el nivel.')) return
 
         // Evaluamos la función.
-        const fullFunction = `function ${stringFunc} check(${JSON.stringify(level)})`;
-        const res = eval(fullFunction);
+        const fullFunction = `function ${stringFunc} check(${JSON.stringify(level)})`
+        const res = eval(fullFunction)
 
         // Mostramos el resultado de la partida.
-        document.querySelector(`.${res}`).parentElement.classList.add('opened');
-        document.querySelector(`.${res}`).classList.remove('hidden');
-      });
+        document.querySelector(`.${res}`).parentElement.classList.add('opened')
+        document.querySelector(`.${res}`).classList.remove('hidden')
+      })
     </script>
   </div>
 </Map>

@@ -1,24 +1,25 @@
 ---
 // Creamos y obtenemos las propiedades.
 interface Props {
-  element: 'a' | 'button';
-  to?: string;
-  id?: string;
+  element: 'a' | 'button'
+  class?: string
+  to?: string
+  id?: string
 }
 
-const { element, to, id } = Astro.props;
+const { element, to, id, class: classProp = '' } = Astro.props
 
 // Guardamos la clase de los elementos.
-const className = 'px-8 py-1 border rounded-2xl transition hover:scale-110 font-bold';
+const className = 'md:text-2xl text-lg px-8 py-1 border rounded-2xl transition hover:scale-110 font-bold text-center'
 ---
 
 <!-- Renderizamos un "button" o "a" según la selección. -->{
   element === 'a' ? (
-    <a id={id} href={to} class={className}>
+    <a id={id} href={to} class={`${className} ${classProp}`}>
       <slot />
     </a>
   ) : (
-    <button id={id} class={className}>
+    <button id={id} class={`${className} ${classProp}`}>
       <slot />
     </button>
   )

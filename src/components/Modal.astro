@@ -1,13 +1,13 @@
 ---
 // Creamos y obtenemos las propiedades.
 interface Props {
-  name?: string;
+  name?: string
 }
 
-const { name } = Astro.props;
+const { name } = Astro.props
 ---
 
 <!-- Creamos un "modal" en el que mostrar los menus de los dispositivos. -->
-<div class={`${name && name} hidden w-3/4 h-3/4 bg-white rounded-lg p-20 flex flex-col justify-between`}>
+<div class={`${name && name} hidden w-3/4 h-3/4 bg-white rounded-lg p-20 flex flex-col justify-between overflow-auto`}>
   <slot />
 </div>

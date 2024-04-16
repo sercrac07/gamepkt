@@ -1,23 +1,23 @@
 ---
 // Importamos los componentes usados.
-import Button from '&/components/Button.astro';
+import Button from '&/components/Button.astro'
 ---
 
 <!-- Renderizamos la sección de inicio de la página. -->
-<section class='flex flex-row items-center h-[90vh]'>
-  <div class='flex flex-col items-start w-3/5 gap-2 text-2xl'>
-    <Button element='a' to='/mapa'>Mapa</Button>
-    <Button element='button'>
+<section class='flex lg:flex-row flex-col justify-center lg:gap-3 gap-12 items-center h-[90vh]'>
+  <div class='flex flex-col items-center w-full lg:items-start lg:w-3/5 gap-2 text-2xl'>
+    <Button class='w-3/4' element='a' to='/mapa'>Mapa</Button>
+    <Button class='w-3/4' element='button'>
       Reiniciar datos de juego
       <script is:inline>
         document.querySelector('button')?.addEventListener('click', () => {
-          const accepted = confirm('¿Deseas eliminar por completo los datos de juego?');
+          const accepted = confirm('¿Deseas eliminar por completo los datos de juego?')
 
-          if (accepted) localStorage.clear();
-        });
+          if (accepted) localStorage.clear()
+        })
       </script>
     </Button>
   </div>
 
-  <img src='/img/packet-tracer.webp' alt='Packet Tracer logo' />
+  <img class='size-[350px]' src='/img/packet-tracer.webp' alt='Packet Tracer logo' />
 </section>
