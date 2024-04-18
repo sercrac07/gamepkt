@@ -1,5 +1,5 @@
 // Importamos todos los tipos usados.
-import type { LevelData, PcProps, ServerProps } from './types';
+import type { LevelData, PcProps, ServerProps } from './types'
 
 // Creamos los datos de juego.
 export const LEVEL_DATA: LevelData[] = [
@@ -16,8 +16,8 @@ export const LEVEL_DATA: LevelData[] = [
     ],
     materials: [{ amount: 1, name: 'cable' }],
     check(level) {
-      if (level.elements[0].connections.length === 1) return true;
-      return false;
+      if (level.elements[0].connections.length === 1) return true
+      return false
     },
   },
   {
@@ -34,8 +34,8 @@ export const LEVEL_DATA: LevelData[] = [
     ],
     materials: [{ amount: 3, name: 'cable' }],
     check(level) {
-      if (level.elements[0].connections.length === 2 && level.elements[1].connections.length === 2) return true;
-      return false;
+      if (level.elements[0].connections.length === 2 && level.elements[1].connections.length === 2) return true
+      return false
     },
   },
   {
@@ -52,13 +52,13 @@ export const LEVEL_DATA: LevelData[] = [
     ],
     materials: [{ amount: 2, name: 'cable' }],
     check(level) {
-      if (level.elements[1].connections.length === 2) return true;
-      return false;
+      if (level.elements[1].connections.length === 2) return true
+      return false
     },
   },
   {
     name: 'En una misma red.',
-    intro: 'Después de conectar los dispositivos, es crucial asignarles un identificador único en la red: la dirección IP. En este juego, todos los niveles se encuentran en la red 192.168.1.1/24, lo que significa que cada IP debe comenzar con 192.168.1. Entra en la configuración de los dos PCs pulsando sobre ellos y asegúrate de que las IPs no se repitan. ¡Es hora de poner en práctica tus habilidades de configuración!',
+    intro: 'Después de conectar los dispositivos, es crucial asignarles un identificador único en la red: la dirección IP. En Game.pkt, todos los niveles se encuentran en la red 192.168.1.0/24, lo que significa que cada IP debe comenzar con 192.168.1. Entra en la configuración de los dos PCs pulsando sobre ellos y asegúrate de que las IPs no se repitan. ¡Es hora de poner en práctica tus habilidades de configuración!',
     key: ['configurar-dispositivos', 'configurar-ip'],
     description: 'Cuando varios dispositivos están conectados entre sí, forman parte de una misma red que requiere una configuración especial.',
     apipa: 1,
@@ -71,15 +71,15 @@ export const LEVEL_DATA: LevelData[] = [
     check(level) {
       if (level.elements[0].connections.length === 1) {
         if ((level.elements[0] as PcProps).ip.startsWith('192.168.1') && (level.elements[1] as PcProps).ip.startsWith('192.168.1')) {
-          if ((level.elements[0] as PcProps).ip !== (level.elements[1] as PcProps).ip) return true;
+          if ((level.elements[0] as PcProps).ip !== (level.elements[1] as PcProps).ip) return true
         }
       }
-      return false;
+      return false
     },
   },
   {
     name: 'Envio de paquetes.',
-    intro: 'En una red, los dispositivos no están simplemente presentes como decoración; constantemente están enviando y recibiendo paquetes de datos. Una forma común de verificar esta comunicación es mediante el comando "ping" en la consola del PC. En este nivel, prueba a utilizar "ping" para establecer la conexión entre los dos dispositivos y verificar su comunicación.',
+    intro: 'En una red, los dispositivos no están simplemente presentes como decoración; constantemente están enviando y recibiendo paquetes de datos. Una forma común de verificar esta comunicación es mediante el comando "ping" en la consola del PC. En este nivel, prueba a utilizar "ping" para establecer la conexión entre los dos dispositivos y verificar su comunicación. Recuerda que los dispositivos deben de estar configurados en la red 192.168.1.0/24, lo que significa que cada IP debe comenzar con 192.168.1.',
     key: ['enviar-paquetes'],
     description: 'Los dispositivos están en constante comunicación, enviando y recibiendo paquetes de datos.',
     apipa: 1,
@@ -90,7 +90,7 @@ export const LEVEL_DATA: LevelData[] = [
     ],
     materials: [{ name: 'cable', amount: 1 }],
     check(level) {
-      return (level.elements[0] as PcProps).pings.some(index => index === 1);
+      return (level.elements[0] as PcProps).pings.some(index => index === 1)
     },
   },
   {
@@ -106,7 +106,7 @@ export const LEVEL_DATA: LevelData[] = [
     ],
     materials: [{ amount: 1, name: 'cable' }],
     check(level) {
-      return (level.elements[0] as PcProps).https.length === 1;
+      return (level.elements[0] as PcProps).https.length === 1
     },
   },
   {
@@ -115,7 +115,7 @@ export const LEVEL_DATA: LevelData[] = [
     key: ['configurar-dhcp', 'configuracion-dinamica'],
     description: 'Configurar los dispositivos repetidamente puede ser agotador, ¿verdad?',
     apipa: 1,
-    missions: ['Conecta los dispositivos.', 'Configura el servicio DHCP.', 'Configura los PCs de manera dinámica.'],
+    missions: ['Conecta los dispositivos.', 'Configura el servidor de manera manual.', 'Configura el servicio DHCP.', 'Configura los PCs de manera dinámica.'],
     elements: [
       { name: 'pc', connections: [], https: [], dhcps: false, ip: '0.0.0.0', pings: [] },
       { name: 'pc', connections: [], https: [], dhcps: false, ip: '0.0.0.0', pings: [] },
@@ -124,12 +124,12 @@ export const LEVEL_DATA: LevelData[] = [
     ],
     materials: [{ amount: 3, name: 'cable' }],
     check(level) {
-      return (level.elements[0] as PcProps).dhcps && (level.elements[1] as PcProps).dhcps;
+      return (level.elements[0] as PcProps).dhcps && (level.elements[1] as PcProps).dhcps
     },
   },
   {
     name: 'Nombres de dominio.',
-    intro: 'Gracias al servicio DNS, se crean diccionarios que traducen los nombres de dominio a direcciones IP de servidores web, facilitando la visualización de páginas sin la necesidad de memorizar números de IP.',
+    intro: 'Gracias al servicio DNS, se crean diccionarios que traducen los nombres de dominio a direcciones IP, facilitando la visualización de páginas sin la necesidad de memorizar números de IP.',
     key: ['usar-navegador', 'configurar-dns'],
     description: 'Para acceder a una página web, es más común usar su nombre de dominio en lugar de su dirección IP.',
     apipa: 1,
@@ -141,7 +141,7 @@ export const LEVEL_DATA: LevelData[] = [
     ],
     materials: [{ amount: 2, name: 'cable' }],
     check(level) {
-      return (level.elements[2] as ServerProps).dnss;
+      return (level.elements[2] as ServerProps).dnss
     },
   },
-];
+]
