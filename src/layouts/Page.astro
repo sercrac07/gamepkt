@@ -20,13 +20,13 @@ const { title } = Astro.props
 <html class='scroll-smooth' lang='es'>
   <head>
     <meta charset='UTF-8' />
-    <meta name='description' content='TODO' />
+    <meta name='description' content='¡Bienvenido a Game.pkt, donde las redes se convierten en una emocionante aventura! Sumérgete en el mundo de la conectividad y los protocolos en este juego educativo basado en Packet Tracer. Desde conectar dispositivos simples hasta configurar servicios avanzados, cada nivel te desafía a aprender y dominar conceptos clave de redes de una manera divertida y práctica.' />
     <meta name='viewport' content='width=device-width' />
     <link rel='icon' type='image/svg+xml' href='/icon.svg' />
     <ViewTransitions />
     <title>{title}</title>
   </head>
-  <body class='font-onest bg-primary'>
+  <body class='font-onest bg-primary flex flex-col justify-between min-h-screen'>
     <Header />
     <main class='xl:mx-[300px] lg:mx-40 mx-4 mb-12'>
       <slot />
